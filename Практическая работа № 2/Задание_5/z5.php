@@ -20,7 +20,6 @@
     $curs_cny = $usd * $rub *$cny;
     echo "$curs_cny";
     ?>
-	
 
 </body>
 </html>
