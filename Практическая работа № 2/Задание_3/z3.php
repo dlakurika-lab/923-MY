@@ -41,6 +41,7 @@
     echo $text5;
     echo $text6;
     echo $text7; 
+    
     ?>
 
 </body>
