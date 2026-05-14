@@ -16,6 +16,10 @@
         $rub = 75.87;
         $cny = 0.09;
 	?>
+    <?php
+    $curs_cny = $usd * $rub *$cny;
+    echo "$curs_cny";
+    ?>
 	
 
 </body>
