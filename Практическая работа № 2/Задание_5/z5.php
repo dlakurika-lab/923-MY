@@ -18,7 +18,7 @@
 	?>
     <?php
     $curs_cny = $usd * $rub *$cny;
-    echo "$curs_cny";
+    echo "1000 usd = $curs_cny cny";
     ?>
 
 </body>
