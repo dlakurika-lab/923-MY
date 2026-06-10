@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Вход</title>
 </head>
 <body>
 <?php
 
 $teacher = [
-    'lastname'   => 'Лаврецкая',
+    'Имя'   => 'Лаврецкая',
     'firstname'  => 'Елизавета',
     'patronymic' => 'Викторовна',
     'login'      => 'elizaveta',
@@ -19,7 +19,7 @@ $teacher = [
 
 echo "<h3>Вы успешно зарегистрированы на сайте</h3>";
 
-echo "<p><b>" . $teacher['lastname'] . " " . $teacher['firstname'] . " " . $teacher['patronymic'] . "</b></p>";
+echo "<p><b>" . $teacher['Имя'] . " " . $teacher['firstname'] . " " . $teacher['patronymic'] . "</b></p>";
 
 echo "<p>Логин: " . $teacher['login'] . "</p>";
 echo "<p>E-mail: " . $teacher['email'] . "</p>";
