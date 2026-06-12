@@ -31,7 +31,6 @@
         $email = $connect->real_escape_string($_POST['email']);
         $password = $connect->real_escape_string($_POST['password']);
 
-        // Запрос (пункты 16-18)
         $sql = "INSERT INTO users (name, login, email, password) VALUES ('$name', '$login', '$email', '$password')";
         
         if ($connect->query($sql)) echo "<div class='alert alert-success mt-3 text-center'>Успешно!</div>";
