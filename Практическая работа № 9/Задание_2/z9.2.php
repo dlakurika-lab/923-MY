@@ -10,7 +10,6 @@
 	<h2>Отправка данных в строке запроса</h2>
 	
 	<?php
-		// инициализация массива
 		$course = [
 			[
 				"Основы программирования", 
@@ -26,16 +25,13 @@
 			]
 		];
 
-		// вывод данных из массива $course согласно переданных параметров
-		
-		// Проверяем наличие всех необходимых GET-параметров
 		if (isset($_GET['user']) && isset($_GET['topic']) && isset($_GET['lesson'])) {
 			
 			$user = $_GET['user'];
 			$topicIndex = (int)$_GET['topic'] - 1; // преобразуем в индекс массива (1 → 0, 2 → 1, 3 → 2)
 			$lessonIndex = (int)$_GET['lesson'] - 1; // преобразуем в индекс массива
 			
-			// Проверяем, что индексы существуют в массиве
+			
 			if (isset($course[$topicIndex])) {
 				
 				$topic = $course[$topicIndex][0];
@@ -44,7 +40,6 @@
 				echo "<h3>Пользователь: {$user}</h3>";
 				echo "<h3>Тема: {$topic}</h3>";
 				
-				// Проверяем, существует ли урок с указанным индексом
 				if (isset($lessons[$lessonIndex])) {
 					$lesson = $lessons[$lessonIndex];
 					echo "<h3>Урок: {$lesson}</h3>";
