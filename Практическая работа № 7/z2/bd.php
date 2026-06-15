@@ -1,15 +1,15 @@
 <?php
-// bd.php
-$host = 'MySQL-8.0';      // Именно так, как написано в phpMyAdmin
-$user = 'root';           // Пользователь
-$password = '';           // Пароль пустой
-$database = 'test_db';    // Имя базы, которую только что создали
+$host = 'localhost';
+$user = 'root';        // по умолчанию в OpenServer/XAMPP
+$password = '';        // пустой пароль
+$dbname = 'mydb';
 
-$conn = new mysqli($host, $user, $password, $database);
+$conn = new mysqli($host, $user, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Ошибка подключения: " . $conn->connect_error);
 }
 
+// Устанавливаем кодировку UTF-8
 $conn->set_charset("utf8mb4");
 ?>

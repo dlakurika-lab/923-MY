@@ -1,6 +1,5 @@
 <?php
-// edit.php
-include 'bd.php';
+require_once 'bd.php';
 include 'header.php';
 
 $id = $_GET['id'] ?? 0;
@@ -9,37 +8,38 @@ $user = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $stmt = $conn->prepare("UPDATE users SET username=?, email=? WHERE id=?");
-    $stmt->bind_param("ssi", $username, $email, $id);
+    $role = $_POST['role'];
+
+    $stmt = $conn->prepare("UPDATE users SET username=?, email=?, role=? WHERE id=?");
+    $stmt->bind_param("sssi", $username, $email, $role, $id);
     if ($stmt->execute()) {
         header("Location: admin.php");
         exit;
     }
-    $stmt->close();
 } else {
-    $stmt = $conn->prepare("SELECT id, username, email FROM users WHERE id=?");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id=?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-    $stmt->close();
-    if (!$user) {
-        echo "<p>Пользователь не найден</p>";
-        include 'footer.php';
-        exit;
-    }
+    $user = $stmt->get_result()->fetch_assoc();
 }
 ?>
 
 <h2>Редактирование пользователя</h2>
 <form method="post">
     <div class="mb-3">
-        <label>Имя пользователя</label>
-        <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($user['username']) ?>" required>
+        <label>Имя</label>
+        <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($user['username'] ?? '') ?>" required>
     </div>
     <div class="mb-3">
         <label>Email</label>
-        <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" required>
+        <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email'] ?? '') ?>" required>
+    </div>
+    <div class="mb-3">
+        <label>Роль</label>
+        <select name="role" class="form-select">
+            <option value="user" <?= ($user['role'] ?? '') == 'user' ? 'selected' : '' ?>>Пользователь</option>
+            <option value="admin" <?= ($user['role'] ?? '') == 'admin' ? 'selected' : '' ?>>Админ</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
     <a href="admin.php" class="btn btn-secondary">Отмена</a>

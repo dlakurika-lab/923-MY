@@ -1,44 +1,55 @@
 <?php
-// admin.php
-include 'bd.php';
+require_once 'bd.php';
 include 'header.php';
+?>
 
-// Получение данных из БД (подготовленный запрос)
-$sql = "SELECT id, username, email, created_at FROM users ORDER BY id DESC";
+<h2 class="mb-4">👥 Список пользователей</h2>
+
+<?php
+// Подготовленный запрос SELECT
+$sql = "SELECT id, username, email, role, created_at FROM users ORDER BY id DESC";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
 $users = $result->fetch_all(MYSQLI_ASSOC);
-$stmt->close();
 ?>
 
-<h2>Административная панель</h2>
-<p>Список пользователей</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Имя пользователя</th>
+                <th>Email</th>
+                <th>Роль</th>
+                <th>Дата регистрации</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?= htmlspecialchars($user['id']) ?></td>
+                    <td><?= htmlspecialchars($user['username']) ?></td>
+                    <td><?= htmlspecialchars($user['email']) ?></td>
+                    <td>
+                        <span class="badge bg-<?= $user['role'] == 'admin' ? 'danger' : 'secondary' ?>">
+                            <?= $user['role'] ?>
+                        </span>
+                    </td>
+                    <td><?= date('d.m.Y H:i', strtotime($user['created_at'])) ?></td>
+                    <td>
+                        <a href="edit.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-warning">✏️ Редактировать</a>
+                        <a href="delete.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Удалить пользователя?')">🗑️ Удалить</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
-<table class="table table-bordered table-striped mt-3">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Имя пользователя</th>
-            <th>Email</th>
-            <th>Дата регистрации</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($users as $user): ?>
-        <tr>
-            <td><?= htmlspecialchars($user['id']) ?></td>
-            <td><?= htmlspecialchars($user['username']) ?></td>
-            <td><?= htmlspecialchars($user['email']) ?></td>
-            <td><?= htmlspecialchars($user['created_at']) ?></td>
-            <td>
-                <a href="edit.php?id=<?= $user['id'] ?>" class="btn btn-warning btn-sm">Редактировать</a>
-                <a href="delete.php?id=<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Удалить пользователя?')">Удалить</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
-<?php include 'footer.php'; ?>
+<?php
+$stmt->close();
+$conn->close();
+include 'footer.php';
+?>

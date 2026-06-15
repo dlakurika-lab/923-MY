@@ -1,61 +1,106 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<meta charset="UTF-8">
-	<title>Программирование на языке PHP</title>
+    <meta charset="UTF-8">
+    <title>Программирование на языке PHP</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .info { background: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px; }
+        .error { color: red; }
+    </style>
 </head>
 <body>
-	
-	<h1>Отправка данных на сервер</h1>
-	<h2>Отправка данных в строке запроса</h2>
-	
-	<?php
-		$course = [
-			[
-				"Основы программирования", 
-				["Введение в PHP", "Переменные", "Константы", "Типы данных", "Строки"]
-			],		
-			[
-				"Функции",
-				["Встроенные функции", "Пользовательские функции", "Область видимости переменных"]
-			],
-			[
-				"Управляющие конструкции",
-				["Условные операторы", "Циклы", "Конструкции"]
-			]
-		];
+    
+    <h1>Отправка данных на сервер</h1>
+    <h2>Отправка данных в строке запроса</h2>
+    
+    <?php
+        // инициализация массива
+        $course = [
+            [
+                "Основы программирования", 
+                ["Введение в PHP", "Переменные", "Константы", "Типы данных", "Строки"]
+            ],        
+            [
+                "Функции",
+                ["Встроенные функции", "Пользовательские функции", "Область видимости переменных"]
+            ],
+            [
+                "Управляющие конструкции",
+                ["Условные операторы", "Циклы", "Конструкции"]
+            ]
+        ];
 
-		if (isset($_GET['user']) && isset($_GET['topic']) && isset($_GET['lesson'])) {
-			
-			$user = $_GET['user'];
-			$topicIndex = (int)$_GET['topic'] - 1; // преобразуем в индекс массива (1 → 0, 2 → 1, 3 → 2)
-			$lessonIndex = (int)$_GET['lesson'] - 1; // преобразуем в индекс массива
-			
-			
-			if (isset($course[$topicIndex])) {
-				
-				$topic = $course[$topicIndex][0];
-				$lessons = $course[$topicIndex][1];
-				
-				echo "<h3>Пользователь: {$user}</h3>";
-				echo "<h3>Тема: {$topic}</h3>";
-				
-				if (isset($lessons[$lessonIndex])) {
-					$lesson = $lessons[$lessonIndex];
-					echo "<h3>Урок: {$lesson}</h3>";
-				} else {
-					echo "<p style='color: red;'>Ошибка: Урок с номером {$_GET['lesson']} не найден в данной теме.</p>";
-				}
-				
-			} else {
-				echo "<p style='color: red;'>Ошибка: Тема с номером {$_GET['topic']} не найдена.</p>";
-			}
-			
-		} else {
-			echo "<p style='color: red;'>Ошибка: Не переданы все необходимые GET-параметры (user, topic, lesson).</p>";
-			echo "<p>Пожалуйста, перейдите по ссылке с корректными параметрами.</p>";
-		}
-	?>
-	
+        // Вывод данных из массива $course согласно переданных параметров
+        
+        // Проверяем наличие всех необходимых GET-параметров
+        if (isset($_GET['user']) && isset($_GET['topic']) && isset($_GET['lesson'])) {
+            
+            $user = $_GET['user'];
+            $topic_index = $_GET['topic'];
+            $lesson_index = $_GET['lesson'];
+            
+            // Преобразуем параметры в целые числа
+            $topic_index = (int)$topic_index;
+            $lesson_index = (int)$lesson_index;
+            
+            // Проверяем валидность индексов
+            if ($topic_index >= 1 && $topic_index <= count($course)) {
+                
+                // Корректируем индекс для массива (массивы в PHP начинаются с 0)
+                $topic_array_index = $topic_index - 1;
+                
+                // Получаем название темы
+                $topic_name = $course[$topic_array_index][0];
+                
+                // Проверяем валидность индекса урока
+                $lessons_count = count($course[$topic_array_index][1]);
+                
+                if ($lesson_index >= 1 && $lesson_index <= $lessons_count) {
+                    
+                    $lesson_array_index = $lesson_index - 1;
+                    $lesson_name = $course[$topic_array_index][1][$lesson_array_index];
+                    
+                    // Выводим информацию
+                    echo "<div class='info'>";
+                    echo "<h3>Информация о запросе</h3>";
+                    echo "<p><strong>Пользователь:</strong> " . htmlspecialchars($user) . "</p>";
+                    echo "<p><strong>Тема:</strong> " . htmlspecialchars($topic_name) . "</p>";
+                    echo "<p><strong>Урок:</strong> " . htmlspecialchars($lesson_name) . "</p>";
+                    echo "</div>";
+                    
+                } else {
+                    // Ошибка: неверный индекс урока
+                    echo "<div class='error'>";
+                    echo "<h3>Ошибка!</h3>";
+                    echo "<p>Урок с индексом {$lesson_index} не найден в теме '{$topic_name}'.</p>";
+                    echo "<p>Доступные уроки: " . implode(", ", $course[$topic_array_index][1]) . "</p>";
+                    echo "</div>";
+                }
+                
+            } else {
+                // Ошибка: неверный индекс темы
+                echo "<div class='error'>";
+                echo "<h3>Ошибка!</h3>";
+                echo "<p>Тема с индексом {$topic_index} не найдена.</p>";
+                echo "<p>Доступные темы:</p><ul>";
+                foreach ($course as $index => $topic) {
+                    echo "<li>Тема " . ($index + 1) . ": " . $topic[0] . "</li>";
+                }
+                echo "</ul>";
+                echo "</div>";
+            }
+            
+        } else {
+            // Ошибка: отсутствуют необходимые параметры
+            echo "<div class='error'>";
+            echo "<h3>Ошибка!</h3>";
+            echo "<p>Не все параметры переданы.</p>";
+            echo "<p>Необходимые параметры: user, topic, lesson</p>";
+            echo "<p>Пример: <code>server.php/?user=timaty&topic=1&lesson=4</code></p>";
+            echo "</div>";
+        }
+    ?>
+    
 </body>
 </html>
