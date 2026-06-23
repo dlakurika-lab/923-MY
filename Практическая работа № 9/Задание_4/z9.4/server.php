@@ -3,32 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Программирование на языке PHP</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .info-block {
-            background-color: #f5f5f5;
-            border-left: 4px solid #4CAF50;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .info-block p {
-            margin: 8px 0;
-        }
-        .label {
-            font-weight: bold;
-            color: #333;
-        }
-        hr {
-            margin: 20px 0;
-        }
-    </style>
 </head>
-<body>
-    
+<body>  
     <h1>Отправка данных на сервер</h1>    
     <h2>Отправка данных в строке запроса</h2>
     <hr>

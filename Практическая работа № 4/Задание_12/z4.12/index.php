@@ -11,28 +11,28 @@
 
     <?php
     // Подключение массивов
-    require __DIR__ . 'albums.php';
-    require __DIR__ . 'tracks.php';
+    require __DIR__ . '/albums.php';
+    require __DIR__ . '/tracks.php';
 
-    echo '<ol>\n';
+    echo '<ol>';
 
     // Внешний цикл по альбомам
     foreach ($albums as $album) {
-        echo "<li>{$album['title']} ({$album['country']})</li>\n";
-        echo '<ul>\n';
+        echo "<li>{$album['title']} ({$album['country']})</li>";
+        echo '<ul>';
         
         // Внутренний цикл по трекам
         foreach ($tracks as $track) {
             // Связь по внешнему ключу id_album
             if ($track['id_album'] == $album['id_album']) {
-                echo "<li>{$track['name']}</li>\n";
+                echo "<li>{$track['name']}</li>";
             }
         }
         
-        echo '</ul>\n';
+        echo '</ul>';
     }
 
-    echo '</ol>\n';
+    echo '</ol>';
     ?>
 </body>
 </html>

@@ -1,0 +1,25 @@
+CREATE DATABASE IF NOT EXISTS bd;
+USE bd;
+
+-- Таблица для регистрации (из 1.php)
+CREATE TABLE IF NOT EXISTS bdd (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Таблица для административной панели (из admin.php, edit.php, delete.php)
+CREATE TABLE IF NOT EXISTS bd2 (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,  -- Добавлено для совместимости
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Создание тестового пользователя для админ-панели (опционально)
+INSERT INTO bd2 (username, email, password) VALUES 
+('admin', 'admin@example.com', 'password123');

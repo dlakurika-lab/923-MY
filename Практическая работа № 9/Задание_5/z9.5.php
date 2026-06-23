@@ -22,9 +22,6 @@
     
     echo "<h2>Созданная вручную JSON-строка:</h2>";
     echo "<code>" . htmlspecialchars($json_string) . "</code><br>";
-    
-    // Декодируем JSON-строку обратно в PHP переменную
-    // Второй параметр true означает, что результат будет массивом (а не объектом)
     $decoded_array = json_decode($json_string, true);
     
     echo "<h2>Результат декодирования JSON (json_decode):</h2>";
@@ -35,7 +32,7 @@
     // Проверка: сравниваем исходный и декодированный массивы
     echo "<h2>Проверка идентичности массивов:</h2>";
     if ($array === $decoded_array) {
-        echo "<p style='color: green; font-weight: bold;'>✓ Успех! Исходный и декодированный массивы идентичны.</p>";
+        echo "<p><b> Успех! Исходный и декодированный массивы идентичны.<b></p>";
     } else {
         echo "<p style='color: red; font-weight: bold;'>✗ Ошибка! Массивы не совпадают.</p>";
     }

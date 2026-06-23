@@ -9,37 +9,48 @@
     <h2>Регулярные выражения, часть 1</h2>
 
     <?php
-
-    $text = file_get_contents('text');
-
-    $text = preg_replace('/\r\n|\r|\n/', '<br>', $text);
-
-    $patterns = [];
-    $pictures = [];
-
-    $patterns[] = "/\{pict1\}/";
-    $pictures[] = "<p><img src='pictures/pict1.jpg' width='500px'></p>";
-
-    $patterns[] = "/\{pict2\}/";
-    $pictures[] = "<p><img src='pictures/pict2.jpg' width='500px'></p>";
-
-    $patterns[] = "/\{pict3\}/";
-    $pictures[] = "<p><img src='pictures/pict3.jpg' width='500px'></p>";
-
-    $patterns[] = "/\{pict4\}/";
-    $pictures[] = "<p><img src='pictures/pict4.jpg' width='500px'></p>";
-
-    $patterns[] = "/\{pict5\}/";
-    $pictures[] = "<p><img src='pictures/pict5.jpg' width='500px'></p>";
-
-    $patterns[] = "/\{pict6\}/";
-    $pictures[] = "<p><img src='pictures/pict6.jpg' width='500px'></p>";
-
-
-    $text = preg_replace($patterns, $pictures, $text);
-
-    echo $text;
+    // Получаем путь к текущей директории
+    $current_dir = __DIR__;
+    $file_path = $current_dir . '/text.txt';
+    
+    // Проверяем существование файла
+    if (file_exists($file_path)) {
+        $text = file_get_contents($file_path);
+        
+        // Заменяем переносы строк на <br>
+        $text = preg_replace('/\r\n|\r|\n/', '<br>', $text);
+        
+        // Массивы для замены картинок
+        $patterns = [];
+        $pictures = [];
+        
+        // Добавляем все паттерны для картинок с помощью цикла
+        for ($i = 1; $i <= 6; $i++) {
+            $patterns[] = "/\{pict$i\}/";
+            $pictures[] = "<p><img src='pictures/pict$i.jpg' style='width:500px;'></p>";
+        }
+        
+        // Заменяем плейсхолдеры на изображения
+        $text = preg_replace($patterns, $pictures, $text);
+        
+        echo $text;
+    } else {
+        // Показываем информацию о том, где ищем файл
+        echo "<p style='color: red;'><b>Ошибка:</b> Файл text.txt не найден!</p>";
+        echo "<p>Поиск выполнялся по пути: <b>" . $file_path . "</b></p>";
+        echo "<p>Текущая директория: <b>" . $current_dir . "</b></p>";
+        
+        // Показываем содержимое директории для отладки
+        echo "<p>Содержимое директории:</p>";
+        echo "<ul>";
+        $files = scandir($current_dir);
+        foreach ($files as $file) {
+            if ($file != '.' && $file != '..') {
+                echo "<li>" . $file . "</li>";
+            }
+        }
+        echo "</ul>";
+    }
     ?>
-
 </body>
 </html>

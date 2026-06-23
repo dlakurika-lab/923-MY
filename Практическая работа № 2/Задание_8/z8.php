@@ -19,5 +19,10 @@
 			'status' => 'Платиновый (USA), Платиновый(GBR)'
 		];
 	?>
+	<?php
+	foreach (PINK_FLOYD as $key => $value) {
+			echo "<p><strong>" . $key . ":</strong> " . $value . "</p>";
+		}
+	?>
 </body>
 </html>

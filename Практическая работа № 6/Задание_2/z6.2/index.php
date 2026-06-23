@@ -23,4 +23,4 @@
         return $Sout;
     }
     echo fnOutAlbum($album);
-?> 
+?>

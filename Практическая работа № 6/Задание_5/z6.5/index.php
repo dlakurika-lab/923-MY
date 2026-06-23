@@ -14,18 +14,18 @@
 
     if ($t1) {
         echo "<h1>{$t1['surname']} {$t1['name']} {$t1['patronymic']}</h1>";
-        echo "<p><strong>Должность:</strong> {$t1['post']}</p>";
-        echo "<p><strong>Стаж (общий/в колледже):</strong> {$t1['experience_total']} / {$t1['experience_college']} лет</p>";
+        echo "<p><strong>Профессия:</strong> {$t1['post']}</p>";
+        echo "<p><strong>Опыт (общий/в колледже):</strong> {$t1['experience_total']} / {$t1['experience_college']} лет</p>";
         if ($t1['email']) echo "<p><strong>Email:</strong> {$t1['email']}</p>";
 
-        echo "<h3>Образование</h3>";
+        echo "<h3>Обучение:</h3>";
         foreach ($educations as $edu) {
             if ($edu['id_personnel'] === $sId) {
                 echo "<div>- {$edu['institution']} ({$edu['specialty']})</div>";
             }
         }
 
-        echo "<h3>Преподаваемые курсы</h3>";
+        echo "<h3>Курсы:</h3>";
         echo "<ul>";
         foreach ($courses as $course) {
             if ($course['id_personnel'] === $sId) {

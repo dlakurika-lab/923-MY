@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
-$dbname = "test";  // Имя вашей базы данных
+$password = "";  
+$dbname = "bd";  
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

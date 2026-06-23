@@ -3,66 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Программирование на языке PHP - Сервер</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .card {
-            background: #f9f9f9;
-            border-left: 4px solid #4CAF50;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        .card h3 {
-            margin-top: 0;
-            color: #4CAF50;
-        }
-        .label {
-            font-weight: bold;
-            color: #555;
-            display: inline-block;
-            width: 160px;
-        }
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 12px;
-        }
-        .error {
-            color: red;
-            background: #ffebee;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .success {
-            color: green;
-            background: #e8f5e9;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
     

@@ -5,7 +5,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = $_GET['id'];
     
 
-    $sql = "DELETE FROM users WHERE id = ?";
+    $sql = "DELETE FROM bd3 WHERE id = ?";
     
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $id);

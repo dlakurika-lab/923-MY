@@ -10,13 +10,13 @@
 
     <?php
     // Подключаем массив с данными сотрудников
-    require 'personnels.php';
+    require 'personales.php';
 
     // Критерий поиска
     $term = 'surname';
     $value = 'Маркова';
 
-    echo '<h3>Результаты поиска (фамилия: $value):</h3>\n';
+    echo '<h3>Результаты поиска (фамилия: $value):</h3>';
 
     $found = false;
     
